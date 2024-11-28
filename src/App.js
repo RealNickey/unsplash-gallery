@@ -1,23 +1,16 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+
+// Dynamically import all images from the assets folder
+const importAll = (r) => r.keys().map(r);
+const images = importAll(require.context('./assets', false, /\.(png|jpe?g|svg)$/));
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {images.map((image, index) => (
+        <img key={index} src={image} className="App-logo" alt={`logo-${index}`} />
+      ))}
     </div>
   );
 }
