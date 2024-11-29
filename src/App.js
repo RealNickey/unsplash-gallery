@@ -1,18 +1,55 @@
-import React from 'react';
-import './App.css';
+import React, { Fragment, useEffect, useState } from "react";
+import "./style.css";
+import { createApi } from "unsplash-js";
 
-// Dynamically import all images from the assets folder
-const importAll = (r) => r.keys().map(r);
-const images = importAll(require.context('./assets', false, /\.(png|jpe?g|svg)$/));
+const api = createApi({
+  accessKey: ""
+});
 
-function App() {
+const PhotoComp = ({ photo }) => {
+  const { user, urls } = photo;
+
   return (
-    <div className="App">
-      {images.map((image, index) => (
-        <img key={index} src={image} className="App-logo" alt={`logo-${index}`} />
-      ))}
-    </div>
+    <Fragment>
+      <img className="img" src={urls.regular} alt={user.name} />
+    </Fragment>
   );
-}
+};
+
+const App = () => {
+  const [data, setPhotosResponse] = useState(null);
+
+  useEffect(() => {
+    api.search
+.getPhotos({ query: "nature", per_page: 15, order_by: "page" })
+.then(result => {
+        setPhotosResponse(result);
+      })
+      .catch(() => {
+        console.log("something went wrong!");
+      });
+  }, []);
+
+  if (data === null) {
+    return <div>Loading...</div>;
+  } else if (data.errors) {
+    return (
+      <div>
+        <div>{data.errors[0]}</div>
+        <div>PS: Make sure to set your access token!</div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="feed">
+
+          {data.response.results.map(photo => (
+              <PhotoComp photo={photo} />
+          ))}
+
+      </div>
+    );
+  }
+};
 
 export default App;

@@ -1,0 +1,21 @@
+* {
+  columns: 300px;
+}
+
+.img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out;
+
+}
+
+.img:hover {
+  transform: scale(1.01);
+}
+
+
+html {
+  margin:20px;
+}
