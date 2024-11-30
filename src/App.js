@@ -3,7 +3,7 @@ import "./style.css";
 import { createApi } from "unsplash-js";
 
 const api = createApi({
-  accessKey: "d8sqMG0FTzFG6GYcLNzmypOoI3tQ2i6gGBSB8SswkO8"
+  accessKey: ""
 });
 
 const PhotoComp = ({ photo }) => {
