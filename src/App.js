@@ -3,7 +3,7 @@ import "./style.css";
 import { createApi } from "unsplash-js";
 
 const api = createApi({
-  accessKey: ""
+  accessKey: process.env.REACT_APP_ACCESS_KEY,
 });
 
 const PhotoComp = ({ photo }) => {
@@ -23,10 +23,10 @@ const App = () => {
   const [inputValue, setInputValue] = useState("");
 
   const handleKeyDown = (event) => {
-    if (event.ctrlKey && event.key === 'k') {
+    if (event.ctrlKey && event.key === "k") {
       event.preventDefault();
       setShowInput(true);
-    } else if (event.key === 'Escape') {
+    } else if (event.key === "Escape") {
       setShowInput(false);
     }
   };
@@ -36,7 +36,7 @@ const App = () => {
   };
 
   const handleInputSubmit = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       setQuery(inputValue);
       setShowInput(false);
       setInputValue("");
@@ -47,7 +47,7 @@ const App = () => {
     const fetchPhotos = () => {
       api.search
         .getPhotos({ query, per_page: 15, order_by: "page" })
-        .then(result => {
+        .then((result) => {
           setPhotosResponse(result);
         })
         .catch(() => {
@@ -57,10 +57,10 @@ const App = () => {
 
     fetchPhotos();
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [query]);
 
@@ -76,7 +76,7 @@ const App = () => {
   } else {
     return (
       <div className="feed">
-        {data.response.results.map(photo => (
+        {data.response.results.map((photo) => (
           <PhotoComp photo={photo} />
         ))}
         {showInput && (
