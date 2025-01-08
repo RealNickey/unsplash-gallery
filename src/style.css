@@ -16,7 +16,7 @@
 }
 
 html {
-  margin:20px;
+  margin: 20px;
 }
 
 .overlay {
@@ -98,7 +98,12 @@ html {
   left: 0;
   width: 100%; /* Ensure overlay matches image width */
   height: 100%; /* Ensure overlay matches image height */
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(
+    0,
+    0,
+    0,
+    0.65
+  ); /* Slightly darker overlay for better readability */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -109,12 +114,16 @@ html {
 
 .quote-overlay p {
   color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 700;
   text-align: center;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  font-family: "Playfair Display", serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  line-height: 1.4;
+  max-width: 90%;
+  margin: 0 auto;
+  letter-spacing: 0.5px;
 }
 
 .image-container:hover .quote-overlay {

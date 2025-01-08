@@ -23,9 +23,15 @@ const PhotoComp = ({ photo }) => {
   const { user, urls } = photo;
   const randomQuote = morningQuotes[Math.floor(Math.random() * morningQuotes.length)];
 
+  const shareOnWhatsApp = () => {
+    const message = `${randomQuote} - ${urls.regular}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
+  };
+
   return (
     <Fragment>
-      <div className="image-container">
+      <div className="image-container" onClick={shareOnWhatsApp}>
         <img className="img" src={urls.regular} alt={user.name} />
         <div className="quote-overlay">
           <p>{randomQuote}</p>
