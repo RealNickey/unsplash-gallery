@@ -37,7 +37,7 @@ const PhotoComp = ({ photo }) => {
 
 const App = () => {
   const [data, setPhotosResponse] = useState(null);
-  const [query, setQuery] = useState("nature");
+  const [query, setQuery] = useState("landscape");
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
