@@ -6,15 +6,14 @@
   width: 100%;
   object-fit: cover;
   border-radius: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 0; /* Remove margin-bottom since container handles spacing */
   transition: transform 0.3s ease-in-out;
-
+  display: block;
 }
 
 .img:hover {
   transform: scale(1.01);
 }
-
 
 html {
   margin:20px;
@@ -84,4 +83,40 @@ html {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+.image-container {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+  display: inline-block; /* Add this to match column width */
+}
+
+.quote-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Ensure overlay matches image width */
+  height: 100%; /* Ensure overlay matches image height */
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 15px;
+}
+
+.quote-overlay p {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.image-container:hover .quote-overlay {
+  opacity: 1;
 }

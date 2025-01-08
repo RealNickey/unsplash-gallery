@@ -6,12 +6,31 @@ const api = createApi({
   accessKey: process.env.REACT_APP_ACCESS_KEY,
 });
 
+const morningQuotes = [
+  "Every morning brings new potential",
+  "Wake up with determination, go to bed with satisfaction",
+  "Start each day with a grateful heart",
+  "Today is a beautiful day to be happy",
+  "Good morning! Make today amazing",
+  "Rise and shine beautiful soul",
+  "Each morning we are born again",
+  "Smile and let the day begin",
+  "Today is a gift, that's why it's called present",
+  "Fill your day with positive thoughts"
+];
+
 const PhotoComp = ({ photo }) => {
   const { user, urls } = photo;
+  const randomQuote = morningQuotes[Math.floor(Math.random() * morningQuotes.length)];
 
   return (
     <Fragment>
-      <img className="img" src={urls.regular} alt={user.name} />
+      <div className="image-container">
+        <img className="img" src={urls.regular} alt={user.name} />
+        <div className="quote-overlay">
+          <p>{randomQuote}</p>
+        </div>
+      </div>
     </Fragment>
   );
 };
