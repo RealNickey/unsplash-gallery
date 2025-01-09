@@ -16,17 +16,77 @@ const morningQuotes = [
   "Each morning we are born again",
   "Smile and let the day begin",
   "Today is a gift, that's why it's called present",
-  "Fill your day with positive thoughts"
+  "Fill your day with positive thoughts",
 ];
 
 const PhotoComp = ({ photo }) => {
   const { user, urls } = photo;
-  const randomQuote = morningQuotes[Math.floor(Math.random() * morningQuotes.length)];
+  const randomQuote =
+    morningQuotes[Math.floor(Math.random() * morningQuotes.length)];
 
-  const shareOnWhatsApp = () => {
-    const message = `${randomQuote} - ${urls.regular}`;
-    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, "_blank");
+  const shareOnWhatsApp = async () => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.src = urls.regular;
+
+    image.onload = async () => {
+      canvas.width = image.width;
+      canvas.height = image.height;
+      ctx.drawImage(image, 0, 0);
+      ctx.font = "30px Arial";
+      ctx.fillStyle = "white";
+      ctx.fillText(randomQuote, 50, 50);
+      const base64Image = canvas.toDataURL("image/png").split(",")[1];
+
+      try {
+        // Upload base64 image to WhatsApp
+        const uploadResponse = await fetch(
+          "https://graph.facebook.com/v15.0/<PHONE_NUMBER_ID>/media?access_token=<YOUR_ACCESS_TOKEN>",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              messaging_product: "whatsapp",
+              file: base64Image,
+              type: "image/png",
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!uploadResponse.ok) {
+          throw new Error("Failed to upload image");
+        }
+        const uploadData = await uploadResponse.json();
+
+        // Send image message
+        const messageResponse = await fetch(
+          "https://graph.facebook.com/v15.0/<PHONE_NUMBER_ID>/messages?access_token=<YOUR_ACCESS_TOKEN>",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              messaging_product: "whatsapp",
+              to: "<RECIPIENT_PHONE_NUMBER>",
+              type: "image",
+              image: {
+                id: uploadData.id,
+                caption: "Shared from the app",
+              },
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (!messageResponse.ok) {
+          throw new Error("Failed to send message");
+        }
+      } catch (error) {
+        console.error("Error sharing on WhatsApp:", error);
+      }
+    };
   };
 
   return (
@@ -102,7 +162,7 @@ const App = () => {
     return (
       <div className="feed">
         {data.response.results.map((photo) => (
-          <PhotoComp photo={photo} />
+          <PhotoComp key={photo.id} photo={photo} />
         ))}
         {showInput && (
           <div className="overlay">
