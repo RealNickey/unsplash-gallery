@@ -19,6 +19,33 @@ const morningQuotes = [
   "Fill your day with positive thoughts",
 ];
 
+const afternoonQuotes = [
+  "Good afternoon! Keep up the good work",
+  "Make this afternoon productive and enjoyable",
+  "The afternoon is a time for reflection and planning",
+  "Good afternoon! Stay positive and keep going",
+  "Enjoy your afternoon and make the most of it",
+];
+
+const nightQuotes = [
+  "Good night! Sleep tight",
+  "May your dreams be sweet and peaceful",
+  "Good night! Rest well and recharge",
+  "Sleep well and wake up refreshed",
+  "Good night! Tomorrow is a new day",
+];
+
+const getQuotesForTimeOfDay = () => {
+  const hour = new Date().getHours();
+  if (hour < 12) {
+    return morningQuotes;
+  } else if (hour < 18) {
+    return afternoonQuotes;
+  } else {
+    return nightQuotes;
+  }
+};
+
 const PhotoComp = ({ photo, overlayActive, quote }) => {
   const { user, urls } = photo;
 
@@ -118,7 +145,8 @@ const App = () => {
         .getPhotos({ query, per_page: 15, order_by: "page" })
         .then((result) => {
           setPhotosResponse(result);
-          setQuotes(result.response.results.map(() => morningQuotes[Math.floor(Math.random() * morningQuotes.length)]));
+          const quotesForTimeOfDay = getQuotesForTimeOfDay();
+          setQuotes(result.response.results.map(() => quotesForTimeOfDay[Math.floor(Math.random() * quotesForTimeOfDay.length)]));
         })
         .catch(() => {
           console.log("something went wrong!");
