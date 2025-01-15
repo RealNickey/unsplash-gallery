@@ -27,9 +27,6 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,6 +89,11 @@ html {
   margin-bottom: 20px;
   width: 100%;
   display: inline-block; /* Add this to match column width */
+  transition: transform 0.3s ease-in-out; /* Add transition for smooth animation */
+}
+
+.image-container:hover {
+  transform: scale(1.05); /* Scale the image slightly on hover */
 }
 
 .quote-overlay {
@@ -104,7 +106,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
+  opacity: 1; /* Set opacity to 1 by default */
   transition: opacity 0.3s ease-in-out;
   border-radius: 15px;
 }
@@ -117,8 +119,4 @@ html {
   padding: 20px;
   font-family: 'Caveat', cursive;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.image-container:hover .quote-overlay {
-  opacity: 1;
 }
