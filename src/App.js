@@ -17,6 +17,27 @@ const morningQuotes = [
   "Smile and let the day begin",
   "Today is a gift, that's why it's called present",
   "Fill your day with positive thoughts",
+  "Good morning! Make today ridiculously amazing",
+  "Every morning we are born again. What we do today matters most.",
+  "The sun reminds us we can rise again from the darkness and shine our own light.",
+  "Rise up, start fresh, see the bright opportunity in each day.",
+  "Your journey will be lighter if you don’t carry your past with you.",
+  "Every sunrise is an invitation to brighten someone’s day.",
+  "It’s not the load that breaks you down, it’s the way you carry it.",
+  "Don’t count the days, make the days count.",
+  "This is another chance to make your dreams come true.",
+  "Today is a new day. Even if you were wrong yesterday, you can get it right today.",
+  "Greet the new dawn, feel the sunshine, and know you hold the power to make this day beautiful.",
+  "The only limit to our realization of tomorrow is our doubts of today.",
+  "With the new day comes new strength and new thoughts.",
+  "Each morning we are born again. What we do today matters most.",
+  "Opportunities are like sunrises. If you wait too long, you miss them.",
+  "Morning comes whether you set the alarm or not.",
+  "The morning was full of sunlight and hope.",
+  "No matter how long you have traveled in the wrong direction, you can always turn around.",
+  "The way you get out of bed will lay the foundation of the day that follows. Be as positive as possible.",
+  "Every morning starts a new page in your story. Make it a great one today.",
+  "There was never a night or a problem that could defeat sunrise or hope.",
 ];
 
 const afternoonQuotes = [
@@ -25,6 +46,23 @@ const afternoonQuotes = [
   "The afternoon is a time for reflection and planning",
   "Good afternoon! Stay positive and keep going",
   "Enjoy your afternoon and make the most of it",
+  "Good afternoon! Take a moment to relax and recharge",
+  "Good afternoon! Keep pushing forward",
+  "Good afternoon! The day is still young",
+  "Good afternoon! Make the most of this beautiful day",
+  "Good afternoon! Stay focused and keep going",
+  "Good afternoon! Keep your head up and stay positive",
+  "Good afternoon! You’re doing great",
+  "Good afternoon! Keep up the momentum",
+  "Good afternoon! Stay motivated and keep going",
+  "Good afternoon! Keep your eyes on the prize",
+  "Good afternoon! Stay strong and keep going",
+  "Good afternoon! Keep your spirits high",
+  "Good afternoon! Stay positive and keep moving forward",
+  "Good afternoon! Keep your energy up",
+  "Good afternoon! Stay focused and keep pushing forward",
+  "Good afternoon! Keep your goals in sight",
+  "Good afternoon! Stay determined and keep going",
 ];
 
 const nightQuotes = [
@@ -33,6 +71,23 @@ const nightQuotes = [
   "Good night! Rest well and recharge",
   "Sleep well and wake up refreshed",
   "Good night! Tomorrow is a new day",
+  "Good night! May you have a restful sleep",
+  "Good night! Sweet dreams",
+  "Good night! Sleep well and dream big",
+  "Good night! May you wake up refreshed and ready to take on the day",
+  "Good night! Rest well and wake up ready to conquer the day",
+  "Good night! May your dreams be filled with happiness",
+  "Good night! Sleep tight and wake up bright",
+  "Good night! May you have a peaceful sleep",
+  "Good night! Rest well and wake up with a smile",
+  "Good night! May your dreams be sweet and your sleep be restful",
+  "Good night! Sleep well and wake up ready to take on the world",
+  "Good night! May you have a restful and peaceful sleep",
+  "Good night! Sleep tight and wake up refreshed",
+  "Good night! May your dreams be filled with joy",
+  "Good night! Rest well and wake up ready to seize the day",
+  "Good night! May you have a peaceful and restful sleep",
+  "Good night! Sleep well and wake up ready to achieve your goals",
 ];
 
 const getQuotesForTimeOfDay = () => {
@@ -116,7 +171,7 @@ const App = () => {
   const [query, setQuery] = useState("clouds");
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [quotes, setQuotes] = useState([]);
+  const [quotes, setQuotes] = useState([]); // Add this line
 
   const handleKeyDown = (event) => {
     if (event.ctrlKey && event.key === "k") {
