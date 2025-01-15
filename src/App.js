@@ -23,9 +23,40 @@ const PhotoComp = ({ photo }) => {
   const { user, urls } = photo;
   const randomQuote = morningQuotes[Math.floor(Math.random() * morningQuotes.length)];
 
+  const shareOnWhatsApp = async () => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.src = urls.regular;
+
+    image.onload = async () => {
+      canvas.width = image.width;
+      canvas.height = image.height;
+      ctx.drawImage(image, 0, 0);
+      ctx.font = `${canvas.width / 20}px Arial`;
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
+      ctx.fillText(randomQuote, canvas.width / 2, canvas.height - 50);
+
+      canvas.toBlob(async (blob) => {
+        const file = new File([blob], "image.png", { type: "image/png" });
+        try {
+          await navigator.share({
+            files: [file],
+            title: "Shared from the app",
+            text: randomQuote,
+          });
+        } catch (error) {
+          console.error("Error sharing on WhatsApp:", error);
+        }
+      }, "image/png");
+    };
+  };
+
   return (
     <Fragment>
-      <div className="image-container">
+      <div className="image-container" onClick={shareOnWhatsApp}>
         <img className="img" src={urls.regular} alt={user.name} />
         <div className="quote-overlay">
           <p>{randomQuote}</p>
