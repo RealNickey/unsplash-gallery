@@ -45,8 +45,8 @@ html {
 }
 
 .search-input {
-  padding: 10px;
-  font-size: 16px;
+  padding: 8px 20px;
+  font-size: 15px;
   border: 2px solid transparent;
   border-radius: 5px;
   outline: none;
@@ -56,12 +56,10 @@ html {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   color: #091416;
-  width: 300px;
-  height: 40px;
+  width: 150px;  /* Reduced width */
+  height: 35px;
   transition: all 0.3s ease-in-out;
   background: white;
-  width: 300px;
-  height: 40px;
   border: none;
   box-shadow: none;
   animation: none;
@@ -69,14 +67,17 @@ html {
 }
 
 .search-input::placeholder {
-  color: #a8a8a8;
+  color: #ffffff;
   font-size: 13px;
   font-family: 'SF Mono', 'Consolas', monospace;
-  background: #1f1d1d;
-  padding: 2px 8px;
-  border-radius: 4px;
+  background: #396e9e;
+  padding: 2px 4px;  /* Reduced padding */
+  border-radius: 3px;
   font-weight: 500;
-  letter-spacing: 0.5px;
+  letter-spacing: 0px;  /* Removed letter spacing */
+  display: inline;  /* Changed from inline-block */
+  width: fit-content;
+  white-space: nowrap;
 }
 
 .search-input-large {
@@ -172,10 +173,11 @@ html {
 }
 
 .search-container {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  padding: 4px 8px;  /* Added horizontal padding */
+  width: auto;
   transition: all 0.3s ease-in-out;
 }
 
