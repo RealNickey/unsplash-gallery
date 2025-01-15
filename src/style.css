@@ -170,3 +170,9 @@ html {
 .search-container:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
+
+/* Remove these classes */
+.error-message,
+.search-error {
+  display: none;
+}

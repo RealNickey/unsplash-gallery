@@ -194,7 +194,7 @@ const App = () => {
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [quotes, setQuotes] = useState([]);
-  const searchInputRef = useRef(null); // Add this line
+  const searchInputRef = useRef(null);
 
   const handleKeyDown = (event) => {
     if (event.ctrlKey && event.key === "k") {
@@ -214,7 +214,7 @@ const App = () => {
   };
 
   const handleInputSubmit = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && inputValue.trim()) {
       setQuery(inputValue);
       setShowInput(false);
       setInputValue("");
@@ -226,13 +226,13 @@ const App = () => {
       api.search
         .getPhotos({ query, per_page: 15, order_by: "page" })
         .then((result) => {
-          setPhotosResponse(result);
-          const quotesForTimeOfDay = getQuotesForTimeOfDay();
-          setQuotes(result.response.results.map(() => quotesForTimeOfDay[Math.floor(Math.random() * quotesForTimeOfDay.length)]));
+          if (result.response?.results?.length) {
+            setPhotosResponse(result);
+            const quotesForTimeOfDay = getQuotesForTimeOfDay();
+            setQuotes(result.response.results.map(() => quotesForTimeOfDay[Math.floor(Math.random() * quotesForTimeOfDay.length)]));
+          }
         })
-        .catch(() => {
-          console.log("something went wrong!");
-        });
+        .catch(console.error); // Just log errors silently
     };
 
     fetchPhotos();
