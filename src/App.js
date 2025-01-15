@@ -7,17 +7,50 @@ const api = createApi({
 });
 
 const morningQuotes = [
-  "Every morning brings new potential",
-  "Wake up with determination, go to bed with satisfaction",
-  "Start each day with a grateful heart",
-  "Today is a beautiful day to be happy",
   "Good morning! Make today amazing",
+  "Every morning brings new potential",
+  "Wake up with determination",
+  "Start each day with a grateful heart",
   "Rise and shine beautiful soul",
   "Each morning we are born again",
-  "Smile and let the day begin",
-  "Today is a gift, that's why it's called present",
-  "Fill your day with positive thoughts",
+  "The early bird gets the worm",
+  "Embrace the fresh start",
+  "Morning is an important time of day",
+  "Let your morning define your day"
 ];
+
+const afternoonQuotes = [
+  "Keep pushing through the afternoon",
+  "Stay productive and focused",
+  "Take a moment to breathe and reflect",
+  "Your afternoon sets the tone for evening",
+  "Keep that positive energy flowing",
+  "Make this afternoon count",
+  "Find joy in the simple moments",
+  "Keep shining bright",
+  "Stay strong and carry on",
+  "Every moment is a fresh beginning"
+];
+
+const nightQuotes = [
+  "Rest well, dream big",
+  "Let the day's worries fade away",
+  "Tomorrow is a new adventure",
+  "Peace comes with the night",
+  "Stars can't shine without darkness",
+  "Sweet dreams ahead",
+  "End the day with gratitude",
+  "Night brings new possibilities",
+  "Sleep is the best meditation",
+  "Good night, sleep tight"
+];
+
+const getTimeBasedQuotes = () => {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) return morningQuotes;
+  if (hour >= 12 && hour < 18) return afternoonQuotes;
+  return nightQuotes;
+};
 
 const PhotoComp = ({ photo, overlayActive, quote }) => {
   const { user, urls } = photo;
@@ -118,7 +151,10 @@ const App = () => {
         .getPhotos({ query, per_page: 15, order_by: "page" })
         .then((result) => {
           setPhotosResponse(result);
-          setQuotes(result.response.results.map(() => morningQuotes[Math.floor(Math.random() * morningQuotes.length)]));
+          const timeBasedQuotes = getTimeBasedQuotes();
+          setQuotes(result.response.results.map(() => 
+            timeBasedQuotes[Math.floor(Math.random() * timeBasedQuotes.length)]
+          ));
         })
         .catch(() => {
           console.log("something went wrong!");

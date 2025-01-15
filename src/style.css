@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Fuzzy+Bubbles&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Fuzzy+Bubbles&display=swap");
 
 * {
   columns: 300px;
@@ -91,8 +91,11 @@ html {
   position: relative;
   margin-bottom: 20px;
   width: 100%;
+  border-radius: 15px;
   display: inline-block; /* Add this to match column width */
   transition: transform 0.3s ease-in-out; /* Add transition for smooth animation */
+  overflow: hidden;
+  aspect-ratio: 1;
 }
 
 .image-container:hover {
@@ -120,6 +123,6 @@ html {
   font-weight: bold;
   text-align: center;
   padding: 20px;
-  font-family: 'Caveat', cursive;
+  font-family: "Caveat", cursive;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
