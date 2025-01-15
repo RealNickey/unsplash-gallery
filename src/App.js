@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import "./style.css";
 import { createApi } from "unsplash-js";
 
@@ -193,12 +193,17 @@ const App = () => {
   const [query, setQuery] = useState("clouds");
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [quotes, setQuotes] = useState([]); // Add this line
+  const [quotes, setQuotes] = useState([]);
+  const searchInputRef = useRef(null); // Add this line
 
   const handleKeyDown = (event) => {
     if (event.ctrlKey && event.key === "k") {
       event.preventDefault();
       setShowInput(true);
+      // Focus the input after state update
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 0);
     } else if (event.key === "Escape") {
       setShowInput(false);
     }
@@ -248,6 +253,7 @@ const App = () => {
       <div className={`search-wrapper ${showInput ? 'centered' : ''}`}>
         <div className="search-container" onClick={(e) => e.stopPropagation()}>
           <input
+            ref={searchInputRef}
             type="text"
             value={inputValue}
             onChange={handleInputChange}
