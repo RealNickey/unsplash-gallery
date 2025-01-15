@@ -13,51 +13,16 @@ const morningQuotes = [
   "Start each day with a grateful heart",
   "Rise and shine beautiful soul",
   "Each morning we are born again",
-  "The early bird gets the worm",
-  "Embrace the fresh start",
-  "Morning is an important time of day",
-  "Let your morning define your day"
+  "Smile and let the day begin",
+  "Today is a gift, that's why it's called present",
+  "Fill your day with positive thoughts",
 ];
 
-const afternoonQuotes = [
-  "Keep pushing through the afternoon",
-  "Stay productive and focused",
-  "Take a moment to breathe and reflect",
-  "Your afternoon sets the tone for evening",
-  "Keep that positive energy flowing",
-  "Make this afternoon count",
-  "Find joy in the simple moments",
-  "Keep shining bright",
-  "Stay strong and carry on",
-  "Every moment is a fresh beginning"
-];
-
-const nightQuotes = [
-  "Rest well, dream big",
-  "Let the day's worries fade away",
-  "Tomorrow is a new adventure",
-  "Peace comes with the night",
-  "Stars can't shine without darkness",
-  "Sweet dreams ahead",
-  "End the day with gratitude",
-  "Night brings new possibilities",
-  "Sleep is the best meditation",
-  "Good night, sleep tight"
-];
-
-const getTimeBasedQuotes = () => {
-  const hour = new Date().getHours();
-  if (hour >= 5 && hour < 12) return morningQuotes;
-  if (hour >= 12 && hour < 18) return afternoonQuotes;
-  return nightQuotes;
-};
-
-const PhotoComp = ({ photo, overlayActive, quote }) => {
+const PhotoComp = ({ photo }) => {
   const { user, urls } = photo;
+  const randomQuote = morningQuotes[Math.floor(Math.random() * morningQuotes.length)];
 
   const shareOnWhatsApp = async () => {
-    if (overlayActive) return; // Prevent sharing when overlay is active
-
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     const image = new Image();
@@ -88,7 +53,7 @@ const PhotoComp = ({ photo, overlayActive, quote }) => {
       ctx.shadowOffsetY = 2;
       
       // Draw text in center
-      ctx.fillText(quote, canvas.width / 2, canvas.height / 2, canvas.width * 0.8);
+      ctx.fillText(randomQuote, canvas.width / 2, canvas.height / 2, canvas.width * 0.8);
 
       canvas.toBlob(async (blob) => {
         const file = new File([blob], "image.png", { type: "image/png" });
@@ -96,7 +61,7 @@ const PhotoComp = ({ photo, overlayActive, quote }) => {
           await navigator.share({
             files: [file],
             title: "Shared from the app",
-            text: quote,
+            text: randomQuote,
           });
         } catch (error) {
           console.error("Error sharing:", error);
@@ -110,7 +75,7 @@ const PhotoComp = ({ photo, overlayActive, quote }) => {
       <div className="image-container" onClick={shareOnWhatsApp}>
         <img className="img" src={urls.regular} alt={user.name} />
         <div className="quote-overlay" style={{ userSelect: "none" }}>
-          <p>{quote}</p>
+          <p>{randomQuote}</p>
         </div>
       </div>
     </Fragment>
@@ -122,7 +87,6 @@ const App = () => {
   const [query, setQuery] = useState("clouds");
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [quotes, setQuotes] = useState([]);
 
   const handleKeyDown = (event) => {
     if (event.ctrlKey && event.key === "k") {
@@ -151,10 +115,6 @@ const App = () => {
         .getPhotos({ query, per_page: 15, order_by: "page" })
         .then((result) => {
           setPhotosResponse(result);
-          const timeBasedQuotes = getTimeBasedQuotes();
-          setQuotes(result.response.results.map(() => 
-            timeBasedQuotes[Math.floor(Math.random() * timeBasedQuotes.length)]
-          ));
         })
         .catch(() => {
           console.log("something went wrong!");
@@ -182,8 +142,8 @@ const App = () => {
   } else {
     return (
       <div className="feed">
-        {data.response.results.map((photo, index) => (
-          <PhotoComp key={photo.id} photo={photo} overlayActive={showInput} quote={quotes[index]} />
+        {data.response.results.map((photo) => (
+          <PhotoComp key={photo.id} photo={photo} />
         ))}
         {showInput && (
           <div className="overlay">
