@@ -239,36 +239,27 @@ const App = () => {
     };
   }, [query]);
 
-  if (data === null) {
-    return <div>Loading...</div>;
-  } else if (data.errors) {
-    return (
-      <div>
-        <div>{data.errors[0]}</div>
-        <div>PS: Make sure to set your access token!</div>
+  return (
+    <div className="feed">
+      {data?.response?.results.map((photo, index) => (
+        <PhotoComp key={photo.id} photo={photo} overlayActive={showInput} quote={quotes[index]} />
+      ))}
+      <div className={`overlay ${showInput ? 'active' : ''}`} onClick={() => setShowInput(false)} />
+      <div className={`search-wrapper ${showInput ? 'centered' : ''}`}>
+        <div className="search-container" onClick={(e) => e.stopPropagation()}>
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyDown={handleInputSubmit}
+            placeholder="Press Ctrl+K to search..."
+            className="search-input"
+            onClick={() => !showInput && setShowInput(true)}
+          />
+        </div>
       </div>
-    );
-  } else {
-    return (
-      <div className="feed">
-        {data.response.results.map((photo, index) => (
-          <PhotoComp key={photo.id} photo={photo} overlayActive={showInput} quote={quotes[index]} />
-        ))}
-        {showInput && (
-          <div className="overlay">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={handleInputChange}
-              onKeyDown={handleInputSubmit}
-              className="search-input search-input-large"
-              autoFocus
-            />
-          </div>
-        )}
-      </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default App;
