@@ -33,11 +33,28 @@ const PhotoComp = ({ photo }) => {
     image.onload = async () => {
       canvas.width = image.width;
       canvas.height = image.height;
+      
+      // Draw the image
       ctx.drawImage(image, 0, 0);
-      ctx.font = `${canvas.width / 20}px 'Caveat', cursive`;
+      
+      // Add semi-transparent black overlay
+      ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Configure text styling
+      ctx.font = `${canvas.width / 10}px 'Caveat', cursive`;
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
-      ctx.fillText(randomQuote, canvas.width / 2, canvas.height - 50);
+      ctx.textBaseline = "middle";
+      
+      // Add text shadow
+      ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+      ctx.shadowBlur = 4;
+      ctx.shadowOffsetX = 2;
+      ctx.shadowOffsetY = 2;
+      
+      // Draw text in center
+      ctx.fillText(randomQuote, canvas.width / 2, canvas.height / 2, canvas.width * 0.8);
 
       canvas.toBlob(async (blob) => {
         const file = new File([blob], "image.png", { type: "image/png" });
@@ -48,7 +65,7 @@ const PhotoComp = ({ photo }) => {
             text: randomQuote,
           });
         } catch (error) {
-          console.error("Error sharing on WhatsApp:", error);
+          console.error("Error sharing:", error);
         }
       }, "image/png");
     };
@@ -58,7 +75,7 @@ const PhotoComp = ({ photo }) => {
     <Fragment>
       <div className="image-container" onClick={shareOnWhatsApp}>
         <img className="img" src={urls.regular} alt={user.name} />
-        <div className="quote-overlay">
+        <div className="quote-overlay" style={{ userSelect: "none" }}>
           <p>{randomQuote}</p>
         </div>
       </div>
