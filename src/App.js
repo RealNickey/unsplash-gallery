@@ -34,7 +34,7 @@ const PhotoComp = ({ photo }) => {
       canvas.width = image.width;
       canvas.height = image.height;
       ctx.drawImage(image, 0, 0);
-      ctx.font = `${canvas.width / 20}px Arial`;
+      ctx.font = `${canvas.width / 20}px 'Caveat', cursive`;
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
       ctx.fillText(randomQuote, canvas.width / 2, canvas.height - 50);
