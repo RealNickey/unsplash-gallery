@@ -125,7 +125,8 @@ const PhotoComp = ({ photo, overlayActive, quote }) => {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
       // Configure text styling
-      ctx.font = `${canvas.width / 10}px 'Caveat', cursive`;
+      const fontSize = canvas.width / 15;
+      ctx.font = `${fontSize}px 'Caveat', cursive`;
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -136,8 +137,29 @@ const PhotoComp = ({ photo, overlayActive, quote }) => {
       ctx.shadowOffsetX = 2;
       ctx.shadowOffsetY = 2;
       
+      // Split text into lines to avoid squeezing
+      const words = quote.split(" ");
+      const lines = [];
+      let currentLine = words[0];
+
+      for (let i = 1; i < words.length; i++) {
+        const word = words[i];
+        const width = ctx.measureText(currentLine + " " + word).width;
+        if (width < canvas.width * 0.8) {
+          currentLine += " " + word;
+        } else {
+          lines.push(currentLine);
+          currentLine = word;
+        }
+      }
+      lines.push(currentLine);
+
       // Draw text in center
-      ctx.fillText(quote, canvas.width / 2, canvas.height / 2, canvas.width * 0.8);
+      const lineHeight = fontSize * 1.2;
+      const textY = (canvas.height - lines.length * lineHeight) / 2;
+      lines.forEach((line, index) => {
+        ctx.fillText(line, canvas.width / 2, textY + index * lineHeight);
+      });
 
       canvas.toBlob(async (blob) => {
         const file = new File([blob], "image.png", { type: "image/png" });
