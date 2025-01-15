@@ -21,77 +21,11 @@ const morningQuotes = [
 
 const PhotoComp = ({ photo }) => {
   const { user, urls } = photo;
-  const randomQuote =
-    morningQuotes[Math.floor(Math.random() * morningQuotes.length)];
-
-  const shareOnWhatsApp = async () => {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    const image = new Image();
-    image.crossOrigin = "anonymous";
-    image.src = urls.regular;
-
-    image.onload = async () => {
-      canvas.width = image.width;
-      canvas.height = image.height;
-      ctx.drawImage(image, 0, 0);
-      ctx.font = "30px Arial";
-      ctx.fillStyle = "white";
-      ctx.fillText(randomQuote, 50, 50);
-      const base64Image = canvas.toDataURL("image/png").split(",")[1];
-
-      try {
-        // Upload base64 image to WhatsApp
-        const uploadResponse = await fetch(
-          "https://graph.facebook.com/v15.0/<PHONE_NUMBER_ID>/media?access_token=<YOUR_ACCESS_TOKEN>",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              messaging_product: "whatsapp",
-              file: base64Image,
-              type: "image/png",
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!uploadResponse.ok) {
-          throw new Error("Failed to upload image");
-        }
-        const uploadData = await uploadResponse.json();
-
-        // Send image message
-        const messageResponse = await fetch(
-          "https://graph.facebook.com/v15.0/<PHONE_NUMBER_ID>/messages?access_token=<YOUR_ACCESS_TOKEN>",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              messaging_product: "whatsapp",
-              to: "<RECIPIENT_PHONE_NUMBER>",
-              type: "image",
-              image: {
-                id: uploadData.id,
-                caption: "Shared from the app",
-              },
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!messageResponse.ok) {
-          throw new Error("Failed to send message");
-        }
-      } catch (error) {
-        console.error("Error sharing on WhatsApp:", error);
-      }
-    };
-  };
+  const randomQuote = morningQuotes[Math.floor(Math.random() * morningQuotes.length)];
 
   return (
     <Fragment>
-      <div className="image-container" onClick={shareOnWhatsApp}>
+      <div className="image-container">
         <img className="img" src={urls.regular} alt={user.name} />
         <div className="quote-overlay">
           <p>{randomQuote}</p>
