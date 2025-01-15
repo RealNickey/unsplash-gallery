@@ -116,27 +116,27 @@ const PhotoComp = ({ photo, overlayActive, quote }) => {
     image.onload = async () => {
       canvas.width = image.width;
       canvas.height = image.height;
-      
+
       // Draw the image
       ctx.drawImage(image, 0, 0);
-      
+
       // Add semi-transparent black overlay
       ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
+
       // Configure text styling
       const fontSize = canvas.width / 15;
       ctx.font = `${fontSize}px 'Caveat', cursive`;
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      
+
       // Add text shadow
       ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
       ctx.shadowBlur = 4;
       ctx.shadowOffsetX = 2;
       ctx.shadowOffsetY = 2;
-      
+
       // Split text into lines to avoid squeezing
       const words = quote.split(" ");
       const lines = [];
@@ -229,7 +229,14 @@ const App = () => {
           if (result.response?.results?.length) {
             setPhotosResponse(result);
             const quotesForTimeOfDay = getQuotesForTimeOfDay();
-            setQuotes(result.response.results.map(() => quotesForTimeOfDay[Math.floor(Math.random() * quotesForTimeOfDay.length)]));
+            setQuotes(
+              result.response.results.map(
+                () =>
+                  quotesForTimeOfDay[
+                    Math.floor(Math.random() * quotesForTimeOfDay.length)
+                  ]
+              )
+            );
           }
         })
         .catch(console.error); // Just log errors silently
@@ -247,10 +254,18 @@ const App = () => {
   return (
     <div className="feed">
       {data?.response?.results.map((photo, index) => (
-        <PhotoComp key={photo.id} photo={photo} overlayActive={showInput} quote={quotes[index]} />
+        <PhotoComp
+          key={photo.id}
+          photo={photo}
+          overlayActive={showInput}
+          quote={quotes[index]}
+        />
       ))}
-      <div className={`overlay ${showInput ? 'active' : ''}`} onClick={() => setShowInput(false)} />
-      <div className={`search-wrapper ${showInput ? 'centered' : ''}`}>
+      <div
+        className={`overlay ${showInput ? "active" : ""}`}
+        onClick={() => setShowInput(false)}
+      />
+      <div className={`search-wrapper ${showInput ? "centered" : ""}`}>
         <div className="search-container" onClick={(e) => e.stopPropagation()}>
           <input
             ref={searchInputRef}
@@ -258,7 +273,7 @@ const App = () => {
             value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleInputSubmit}
-            placeholder="Press Ctrl+K to search..."
+            placeholder="⌘ + K"
             className="search-input"
             onClick={() => !showInput && setShowInput(true)}
           />
