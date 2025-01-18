@@ -62,7 +62,7 @@ The project consists of several key components:
      - More respectful of user choice for sharing method
      - Native integration with device sharing capabilities
      - No dependency on specific third-party platform
-     - whatsapp api required whatsapp business account
+     - WhatsApp API required WhatsApp Business account
 
 2. **Dynamic Images vs Static Assets**
    - Considered bundling high-quality images with the application
@@ -70,7 +70,7 @@ The project consists of several key components:
      - Larger variety of images
      - Reduced application size
      - Always fresh content for users
-     -faster loading times
+     - Faster loading times
 
 3. **Image Processing Approach**
    - Debated between server-side vs client-side image processing
@@ -94,7 +94,6 @@ The project consists of several key components:
      - Better performance
      - Carefully curated for each time of day
 
-
 ### Technical Details
 
 - Built with React.js for component-based architecture
@@ -107,13 +106,21 @@ The project consists of several key components:
 - Uses HTML5 Canvas for image manipulation
 - Implements Web Share API for social sharing
 
-
 ### Setup and Installation
 
 1. Clone the repository
 2. Install dependencies: `npm install`
-3. Create `.env` file with your Unsplash API key:
-   ```
-   REACT_APP_ACCESS_KEY=your_api_key_here
-   ```
-4. Run the development server: `npm start`
+3. Create a Developer Account on Unsplash:
+   - Visit [Unsplash Developers](https://unsplash.com/developers)
+   - Click "Register as a Developer"
+   - Complete the registration process
+4. Create a New Application on Unsplash:
+   - Go to your [Applications Dashboard](https://unsplash.com/oauth/applications)
+   - Click "New Application"
+   - Accept the API Terms and Guidelines
+5. Get Your API Keys:
+   - After creation, you'll see your Access Key and Secret Key
+   - Copy the Access Key
+   - Create a `.env` file in your project root
+   - Add your key: `REACT_APP_ACCESS_KEY=your_access_key_here`
+6. Run the development server: `npm start`
