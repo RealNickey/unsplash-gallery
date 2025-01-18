@@ -4,9 +4,9 @@ import { createApi } from "unsplash-js";
 
 const api = createApi({
   accessKey: process.env.REACT_APP_ACCESS_KEY,
-});
+}); // Source: Unsplash API documentation
 
-const morningQuotes = [
+const morningQuotes = [  
   "Every morning brings new potential",
   "Wake up with determination, go to bed with satisfaction",
   "Start each day with a grateful heart",
@@ -38,6 +38,7 @@ const morningQuotes = [
   "The way you get out of bed will lay the foundation of the day that follows. Be as positive as possible.",
   "Every morning starts a new page in your story. Make it a great one today.",
   "There was never a night or a problem that could defeat sunrise or hope.",
+  // Generated with help from Microsoft Copilot
 ];
 
 const afternoonQuotes = [
@@ -63,6 +64,7 @@ const afternoonQuotes = [
   "Good afternoon! Stay focused and keep pushing forward",
   "Good afternoon! Keep your goals in sight",
   "Good afternoon! Stay determined and keep going",
+  // Generated with help from Microsoft Copilot
 ];
 
 const nightQuotes = [
@@ -88,6 +90,7 @@ const nightQuotes = [
   "Good night! Rest well and wake up ready to seize the day",
   "Good night! May you have a peaceful and restful sleep",
   "Good night! Sleep well and wake up ready to achieve your goals",
+  // Generated with help from Microsoft Copilot
 ];
 
 const getQuotesForTimeOfDay = () => {
@@ -137,7 +140,8 @@ const PhotoComp = ({ photo, overlayActive, quote }) => {
       ctx.shadowOffsetX = 2;
       ctx.shadowOffsetY = 2;
 
-      // Split text into lines to avoid squeezing
+      // Text wrapping and canvas manipulation logic
+      // Generated with assistance from GitHub Copilot
       const words = quote.split(" ");
       const lines = [];
       let currentLine = words[0];
@@ -168,7 +172,7 @@ const PhotoComp = ({ photo, overlayActive, quote }) => {
             files: [file],
             title: "Shared from the app",
             text: quote,
-          });
+          }); // Source: https://kushkumar636.medium.com/web-apps-share-file-text-urls-over-social-media-96ec654c0b90
         } catch (error) {
           console.error("Error sharing:", error);
         }
@@ -229,6 +233,8 @@ const App = () => {
           if (result.response?.results?.length) {
             setPhotosResponse(result);
             const quotesForTimeOfDay = getQuotesForTimeOfDay();
+            // Random quote selection implementation
+            // Generated with assistance from GitHub Copilot
             setQuotes(
               result.response.results.map(
                 () =>
@@ -239,7 +245,7 @@ const App = () => {
             );
           }
         })
-        .catch(console.error); // Just log errors silently
+        .catch(console.error); //  log errors silently
     };
 
     fetchPhotos();
