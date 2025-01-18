@@ -245,7 +245,7 @@ const App = () => {
             );
           }
         })
-        .catch(console.error); //  log errors silently
+        .catch(console.error); // Just log errors silently
     };
 
     fetchPhotos();
@@ -258,34 +258,37 @@ const App = () => {
   }, [query]);
 
   return (
-    <div className="feed">
-      {data?.response?.results.map((photo, index) => (
-        <PhotoComp
-          key={photo.id}
-          photo={photo}
-          overlayActive={showInput}
-          quote={quotes[index]}
-        />
-      ))}
-      <div
-        className={`overlay ${showInput ? "active" : ""}`}
-        onClick={() => setShowInput(false)}
-      />
-      <div className={`search-wrapper ${showInput ? "centered" : ""}`}>
-        <div className="search-container" onClick={(e) => e.stopPropagation()}>
-          <input
-            ref={searchInputRef}
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-            onKeyDown={handleInputSubmit}
-            placeholder="⌘ + K"
-            className="search-input"
-            onClick={() => !showInput && setShowInput(true)}
+    <>
+      <div className="logo">PhotoQuotes</div>
+      <div className="feed">
+        {data?.response?.results.map((photo, index) => (
+          <PhotoComp
+            key={photo.id}
+            photo={photo}
+            overlayActive={showInput}
+            quote={quotes[index]}
           />
+        ))}
+        <div
+          className={`overlay ${showInput ? "active" : ""}`}
+          onClick={() => setShowInput(false)}
+        />
+        <div className={`search-wrapper ${showInput ? "centered" : ""}`}>
+          <div className="search-container" onClick={(e) => e.stopPropagation()}>
+            <input
+              ref={searchInputRef}
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleInputSubmit}
+              placeholder="⌘ + K"
+              className="search-input"
+              onClick={() => !showInput && setShowInput(true)}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
