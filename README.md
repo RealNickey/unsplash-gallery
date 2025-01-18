@@ -1,4 +1,4 @@
-# Unsplash Gallery with Motivational Quotes
+# PhotoQuotes
 #### Video Demo: [URL HERE]
 #### Description:
 
